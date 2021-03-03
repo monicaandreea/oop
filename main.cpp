@@ -1,60 +1,106 @@
 #include <iostream>
-//clasa Librarie si clase prin compunere:
-//carti(autor, isbn, nr pag, tip coperta, gen)
+//#include <fstream>
+//clasa Student si clase prin compunere:
+//carti(nume, autor,  nr pag)
 //manuale(clasa, materie)
 //caiete(tipul, nr pagini)
 
-class Librarie{
+/*
+class Carte{
 private:
-    std::string city;
-    std::string street;
-    int street_num;
-    //Carte book;
-    //Manual man;
-    //Caiet note;
+    std::string name;
+    std::string author;
+    int num_pag;
 public:
-    Librarie(std::string x, std::string y, int z){ //constructor cu parametrii
-        city = x;
-        street = y;
-        street_num = z;
+
+};
+
+class Manual{
+private:
+    int clasa;
+    std::string subject;
+public:
+
+};
+*/
+class Caiet{
+private:
+    int pages;
+    std::string type;
+public:
+    Caiet(){
+        pages = 0;
+        type = "";
     }
-    Librarie(const Librarie& a){ //constructor de copiere
+    Caiet(int a, std::string b){
+        pages = a;
+        type = b;
+    }
+    void setPages(int a){
+        pages = a;
+    }
+    int getPages(){
+        return pages;
+    }
+    void setType(std::string a){
+        type = a;
+    }
+    std::string getType(){
+        return type;
+    }
+
+    friend std::ostream &operator<<( std::ostream &output, const Caiet &c ) {
+        output<<"\nNumber of pages: "<<c.pages <<"\nType: "<<c.type;
+        return output;
+    }
+
+};
+
+class Student{
+private:
+    std::string name;
+    int age;
+    Caiet notebook;
+
+public:
+    Student(std::string a, int b, Caiet c)://constructor cu parametrii
+        name{ a }, age{ b }, notebook{ c }
+    {
+    }
+
+    Student(const Student& a){ //constructor de copiere
 
     }
-    ~Librarie(){ //deconstructor
-        std::cout<<" s-a apelat deconstructorul"<<std::endl;
+    ~Student(){ //destructor
+        std::cout<<"\ns-a apelat destructorul"<<std::endl;
     }
     //setteri si getteri
-    void setCity(std::string a){
-        city = a;
+    void setName(std::string a){
+        name = a;
     }
-    std::string getCity(){
-        return city;
+    std::string getName(){
+        return name;
     }
-    void setStreet(std::string a){
-        street = a;
+    void setAge(int a){
+        age = a;
     }
-    std::string getStreet(){
-        return street;
+    int getAge(){
+        return age;
     }
-    void setStreet_num(int a){
-        street_num = a;
+
+    friend std::ostream &operator<<( std::ostream &output, const Student &lib ) {
+        output<<"Name: "<< lib.name <<"\nAge: " << lib.age<<"\nCaiet: "<<lib.notebook;
+        return output;
     }
-    int getStreet_num(){
-        return street_num;
-    }
-    friend std::ostream &operator<<(std::ostream &afis, const Librarie &lib){
-        afis<<lib.city<<" "<<lib.street<<" "<<lib.street_num<<std::endl;
-        return afis;
-    }
+
 };
 
 
 
 int main() {
-    Librarie lib("Bucuresti", "Emil Racovita", 2);
-    //lib.setCity("Bucuresti")
-    std::cout<< lib.getCity();
-    afis<<lib;
+    Student lib("Monica", 19, {70, "dictando"});
+    //lib.setName("Bucuresti")
+    //std::cout<< lib.getName();
+    std::cout<<lib;
     return 0;
 }
