@@ -123,8 +123,6 @@ public:
 
 int main() {
     Student lib("A", 15, {70, "dictando"}, {9, "romana"});
-    //lib.setName("Bucuresti")
-    //std::cout<< lib.getName();
     std::cout<<lib;
     return 0;
 }
