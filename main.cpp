@@ -1,54 +1,9 @@
 #include <iostream>
-//#include <fstream>
 //clasa Librarie si clase prin compunere:
 //carti(autor, isbn, nr pag, tip coperta, gen)
 //manuale(clasa, materie)
 //caiete(tipul, nr pagini)
 
-/*
-class Carte{
-private:
-
-public:
-    int isbn;
-    std::string author;
-    int num_pag;
-    int year;
-    std::string cover;
-    std::string genre;
-};
-
-class Manual{
-private:
-
-public:
-    int clasa;
-    std::string subject;
-};
-
-class Caiet{
-private:
-    int pages;
-    std::string type;
-public:
-    Caiet(int a, std::string b){
-        pages = a;
-        type = b;
-    }
-    void setPages(int a){
-        pages = a;
-    }
-    int getPages(){
-        return pages;
-    }
-    void setType(std::string a){
-        type = a;
-    }
-    std::string getType(){
-        return type;
-    }
-};
-*/
 class Librarie{
 private:
     std::string city;
