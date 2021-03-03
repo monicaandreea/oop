@@ -5,7 +5,7 @@
 //manuale(clasa, materie)
 //caiete(tipul, nr pagini)
 
-/*
+
 class Carte{
 private:
     std::string name;
@@ -20,9 +20,33 @@ private:
     int clasa;
     std::string subject;
 public:
+    Manual(){
+        clasa = 0;
+        subject = "";
+    }
+    Manual(int a, std::string b){
+        clasa = a;
+        subject = b;
+    }
+    void setClasa(int a){
+        clasa = a;
+    }
+    int getClasa(){
+        return clasa;
+    }
+    void setSubject(std::string a){
+        subject = a;
+    }
+    std::string getSubject(){
+        return subject;
+    }
 
+    friend std::ostream &operator<<( std::ostream &output, const Manual &m ) {
+        output<<"\nClass: "<<m.clasa <<"\nSubject: "<<m.subject;
+        return output;
+    }
 };
-*/
+
 class Caiet{
 private:
     int pages;
@@ -61,10 +85,10 @@ private:
     std::string name;
     int age;
     Caiet notebook;
-
+    Manual man;
 public:
-    Student(std::string a, int b, Caiet c)://constructor cu parametrii
-        name{ a }, age{ b }, notebook{ c }
+    Student(std::string a, int b, Caiet c, Manual m)://constructor cu parametrii
+        name{ a }, age{ b }, notebook{ c }, man{ m }
     {
     }
 
@@ -89,7 +113,7 @@ public:
     }
 
     friend std::ostream &operator<<( std::ostream &output, const Student &lib ) {
-        output<<"Name: "<< lib.name <<"\nAge: " << lib.age<<"\nCaiet: "<<lib.notebook;
+        output<<"Name: "<< lib.name <<"\nAge: " << lib.age<<"\nCaiet: "<<lib.notebook <<"\nManual: "<<lib.man;
         return output;
     }
 
@@ -98,7 +122,7 @@ public:
 
 
 int main() {
-    Student lib("Monica", 19, {70, "dictando"});
+    Student lib("A", 15, {70, "dictando"}, {9, "romana"});
     //lib.setName("Bucuresti")
     //std::cout<< lib.getName();
     std::cout<<lib;
