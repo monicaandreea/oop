@@ -1,5 +1,6 @@
 #include<iostream>
 #include "Caiet.h"
+#include <utility>
 
 Caiet::Caiet(const int &pag, std::string tip, int stoc, int pret){
     pages = pag;
@@ -24,12 +25,12 @@ int Caiet::getStock(){
     return stock;
 }
 
-friend std::ostream &operator<<( std::ostream &output, const Caiet &c ) {
+std::ostream &operator<<( std::ostream &output, const Caiet &c ) {
     output<<"\nNumber of pages: "<<c.pages <<"\nType: "<<c.type<<"\nStock: "<<c.stock<<"\nPrice: "<<c.price<<"\n";
     return output;
 }
 
-friend bool operator==( const Caiet &c1, const Caiet &c2)
+bool operator==( const Caiet &c1, const Caiet &c2)
 {
     return(c1.price == c2.price && c1.type == c2.type && c1.pages == c2.pages);
 }
@@ -41,7 +42,7 @@ Caiet::Caiet(const Caiet &c){
     price = c.price;
 }
 
-Caiet::Caiet& operator= (const Caiet &c){
+Caiet& Caiet::operator= (const Caiet &c){
     if( this == &c)
         return *this;
     pages = c.pages;
@@ -52,12 +53,12 @@ Caiet::Caiet& operator= (const Caiet &c){
     return *this;
 }
 
-friend bool operator<( const Caiet &c1, const Caiet &c2)
+bool operator<( const Caiet &c1, const Caiet &c2)
 {
     return( c1.type == c2.type && ( double(c1.price)/double(c1.pages) < double(c2.price)/double(c2.pages) ));
 }
 
-friend bool operator>( const Caiet &c1, const Caiet &c2)
+bool operator>( const Caiet &c1, const Caiet &c2)
 {
     return( c1.type == c2.type && ( double(c1.price)/double(c1.pages) > double(c2.price)/double(c2.pages) ));
 }
