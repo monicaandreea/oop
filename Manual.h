@@ -1,3 +1,7 @@
+#ifndef LIBRARIE_MANUAL_H
+#define LIBRARIE_MANUAL_H
+
+
 #include<iostream>
 
 class Manual{
@@ -12,6 +16,13 @@ public:
     int getClasa();
     std::string getSubject();
     int getStock();
-    virtual ~Manual();
+    void setStock(int s);
+    ~Manual();
     friend std::ostream &operator<<( std::ostream &output, const Manual &m );
+    friend bool operator==( const Manual &m1, const Manual &m2);
+    friend bool operator<( const Manual &m1, const Manual &m2);
+    friend bool operator>( const Manual &m1, const Manual &m2);
+    Manual(const Manual &m);
+    Manual& operator= (const Manual &m);
 };
+#endif //LIBRARIE_MANUAL_H
