@@ -1,6 +1,7 @@
 #include<iostream>
 #include "Librarie.h"
 #include <utility>
+#include <algorithm>
 
 Librarie::Librarie(const std::string &nume): name( nume ){}
 
