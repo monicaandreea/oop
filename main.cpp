@@ -31,6 +31,11 @@ int main() {
     Manual man4 = man3;
     std::cout<<man4;
 
+    if(man2>man1) std::cout<<"este";
+    else std::cout<<"nu este";
+    if(c2>c3) std::cout<<"este";
+    else std::cout<<"nu este";
+
     std::cout<<lib1.compara({man1, man2}, "mate", 7);
     std::cout<<lib1.compara({c2, c3, c1}, "dictando");
     return 0;
