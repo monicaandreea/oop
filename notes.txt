@@ -1,3 +1,1 @@
-- functie care sa compare produsele (manualele/caietele) pentru un cumparator, sa ii spuna de unde e mai profitabil sa cumpere
-- functie care sa verifice daca un produs e in stoc (eventual sa modifice stocul)
-- eventual inca o clasa cu orders(vector<string> nume_produse)
+
