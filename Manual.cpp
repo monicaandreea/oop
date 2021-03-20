@@ -1,5 +1,5 @@
 #include "Manual.h"
-
+#include <utility>
 Manual::Manual(const int &cls, std::string sub, int stoc, int pret){
     clasa = cls;
     subject = sub;
@@ -53,7 +53,7 @@ Manual::Manual(const Manual &m){
     price = m.price;
 }
 
-Manual::Manual& operator= (const Manual &m){
+Manual& Manual::operator= (const Manual &m){
     if( this == &m)
         return *this;
     clasa = m.clasa;
