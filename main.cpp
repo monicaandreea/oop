@@ -13,30 +13,40 @@ int main() {
     Caiet c4(160, "dictando", 9, 10);
     Caiet c5(160, "velin", 17, 5);
     Manual man3(7, "mate", 10, 20);
+
+    std::cout<<"\nLibraria:";
+    std::cout<<lib1;
+
     lib1.adauga(man1);
     lib1.adauga(man2);
     lib1.adauga(c1);
     lib1.adauga(c2);
-    lib1.adauga(c3);
+
+    std::cout<<"\nLibraria dupa ce am adaugat produse:";
+    std::cout<<lib1;
+
+    lib1.adauga(c3); //modifica stoc c1
     lib1.adauga(c4);
     lib1.adauga(c5);
-    lib1.adauga(man3);
+    lib1.adauga(man3); //modifica stoc man2
+
+    std::cout<<"\nLibraria dupa ce am adaugat produse si am modificat stocul:";
+    std::cout<<lib1;
+
     lib1.sterge(c3, 7);
     lib1.sterge(c2, 7);
     lib1.sterge(c3, 8);
     lib1.sterge(man1, 8);
+    std::cout<<"\nLibraria dupa ce am sters produse:";
     std::cout<<lib1;
 
     std::cout<<"\nConstructor de copiere:";
     Manual man4 = man3;
     std::cout<<man4;
 
-    if(man2>man1) std::cout<<"este";
-    else std::cout<<"nu este";
-    if(c2>c3) std::cout<<"este";
-    else std::cout<<"nu este";
-
+    std::cout<<"\nCel mai ieftin manual de matematica de clasa a 7a:";
     std::cout<<lib1.compara({man1, man2}, "mate", 7);
+    std::cout<<"\nCel mai ieftin caiet de dictando:";
     std::cout<<lib1.compara({c2, c3, c1}, "dictando");
     return 0;
 }
