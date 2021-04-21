@@ -1,5 +1,7 @@
 #include<iostream>
 #include "Librarie.h"
+#include "stoc_insuficient.h"
+#include "produs_inexistent.h"
 #include <utility>
 #include <algorithm>
 
@@ -34,10 +36,16 @@ void Librarie::sterge(Caiet &caiet, int cantitate){ ///verifica daca cantitatea 
     for(auto &c : this->caiete)
         if( c == caiet )
         {
-            if(c.getStock() >= cantitate)
-                c.setStock( c.getStock() - cantitate );
-            else std::cout<<"Atentie! Cantitatea ceruta este mai mare decat stocul.("<<c.getStock()<<")\n";
+            try{
+                if(c.getStock() >= cantitate)
+                    c.setStock( c.getStock() - cantitate );
+                else{throw stoc_insuficient(c.getStock(), cantitate );}
+            }
 
+            catch(int num){
+                std::cout<<"Atentie! Cantitatea ceruta este mai mare decat stocul.\n";
+                std::cout<<"Stocul curent este: "<<num;
+            }
             if(c.getStock() <= 0)
                 caiete.erase(remove(caiete.begin(), caiete.end(), caiet));
             break;
@@ -60,9 +68,16 @@ void Librarie::sterge(Manual &man, int cantitate){
     for(auto &m : this->manuale)
         if( m == man )
         {
-            if(m.getStock() >= cantitate)
-                m.setStock( m.getStock() - cantitate );
-            else std::cout<<"Atentie! Cantitatea ceruta este mai mare decat stocul.("<<m.getStock()<<")\n";
+            try{
+                if(m.getStock() >= cantitate)
+                    m.setStock( m.getStock() - cantitate );
+                else{throw stoc_insuficient(m.getStock(), cantitate );}
+            }
+
+            catch(int num){
+                std::cout<<"Atentie! Cantitatea ceruta este mai mare decat stocul.\n";
+                std::cout<<"Stocul curent este: "<<num;
+            }
 
             if(m.getStock() <= 0)
                 manuale.erase(remove(manuale.begin(), manuale.end(), man));
@@ -70,23 +85,29 @@ void Librarie::sterge(Manual &man, int cantitate){
         }
 }
 
-Manual Librarie::compara(std::vector<Manual> m, std::string sub, int cls) //returneaza manualul cel mai ieftin pentru subiectul si clasa selectate
+Manual Librarie::compara(std::string sub, int cls) //returneaza manualul cel mai ieftin pentru subiectul si clasa selectate
 {
-    Manual man = this->manuale[0];
+    Manual man(cls, sub, -1, 500);
     for(auto &manual : this->manuale)
     {
         if(manual < man) man = manual;
     }
+    if(man.getPrice() == 500)
+        throw produs_inexistent(man);
+
     return man;
 }
 
-Caiet Librarie::compara(std::vector<Caiet> c, std::string tip) //returneaza caietul cel mai ieftin in functie de tip
+Caiet Librarie::compara(std::string tip) //returneaza caietul cel mai ieftin in functie de tip
 {
-    Caiet cai = this->caiete[0];
+    Caiet cai(160, tip, -1, 500);
     for(auto &caiet : this->caiete)
     {
         if(caiet < cai) cai = caiet;
     }
+    if(cai.getPrice() == 500)
+        throw produs_inexistent(cai);
+
     return cai;
 }
 
