@@ -14,6 +14,7 @@ public:
 
     Manual(const int &cls, std::string sub, int stoc, int pret);
     int getClasa();
+    virtual int getPrice();
     std::string getSubject();
     int getStock();
     void setStock(int s);
