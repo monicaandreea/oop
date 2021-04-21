@@ -12,6 +12,7 @@ private:
 public:
     Caiet(const int &pag, std::string tip, int stoc, int pret);
     int getPages();
+    int getPrice();
     std::string getType();
     void setStock(int s);
     int getStock();
