@@ -17,8 +17,7 @@ public:
     void sterge(Caiet &caiet, int cantitate); //verifica daca cantitatea ceruta este mai mare decat stocul, iar daca stocul este 0, sterge produsul
     void adauga(Manual &man);
     void sterge(Manual &man, int cantitate);
-    Manual compara(std::vector<Manual> m, std::string sub, int cls); //returneaza manualul cel mai ieftin pentru subiectul si clasa selectate
-    Caiet compara(std::vector<Caiet> c, std::string tip); //returneaza caietul cel mai ieftin in functie de tip
+    Manual compara(std::string sub, int cls); //returneaza manualul cel mai ieftin pentru subiectul si clasa selectate
+    Caiet compara(std::string tip); //returneaza caietul cel mai ieftin in functie de tip
     friend std::ostream &operator<<( std::ostream &output, const Librarie &lib );
-
 };
