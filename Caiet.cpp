@@ -13,6 +13,10 @@ int Caiet::getPages(){
     return pages;
 }
 
+int Caiet::getPrice(){
+    return price;
+}
+
 std::string Caiet::getType(){
     return type;
 }
