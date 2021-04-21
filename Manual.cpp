@@ -14,6 +14,10 @@ std::string Manual::getSubject(){
     return subject;
 }
 
+int Manual::getPrice(){
+    return price;
+}
+
 int Manual::getStock(){
     return stock;
 }
