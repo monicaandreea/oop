@@ -52,10 +52,10 @@ void Librarie::sterge(Caiet &caiet, int cantitate){ ///verifica daca cantitatea 
         }
 }
 
-void Librarie::adauga(Manual &man){
+void Librarie::adauga(ManualLucru &man){
     int ok = 1;
     for(auto &m : this->manuale)
-        if( m == man)
+        if( m == man && m.getRez()==man.getRez() && m.getDificulty()==man.getDificulty())
         {
             m.setStock(m.getStock() + man.getStock());
             ok = 0;
@@ -64,7 +64,7 @@ void Librarie::adauga(Manual &man){
     if(ok == 1) manuale.push_back(man);
 }
 
-void Librarie::sterge(Manual &man, int cantitate){
+void Librarie::sterge(ManualLucru &man, int cantitate){
     for(auto &m : this->manuale)
         if( m == man )
         {
@@ -85,14 +85,60 @@ void Librarie::sterge(Manual &man, int cantitate){
         }
 }
 
-Manual Librarie::compara(std::string sub, int cls) //returneaza manualul cel mai ieftin pentru subiectul si clasa selectate
+void Librarie::adauga(ManualLiceu &man){
+    int ok = 1;
+    for(auto &m : this->manualeliceu)
+        if( m == man && m.getProfil() == man.getProfil())
+        {
+            m.setStock(m.getStock() + man.getStock());
+            ok = 0;
+            break;
+        }
+    if(ok == 1) manualeliceu.push_back(man);
+}
+
+void Librarie::sterge(ManualLiceu &man, int cantitate){
+    for(auto &m : this->manualeliceu)
+        if( m == man )
+        {
+            try{
+                if(m.getStock() >= cantitate)
+                    m.setStock( m.getStock() - cantitate );
+                else{throw stoc_insuficient(m.getStock(), cantitate );}
+            }
+
+            catch(int num){
+                std::cout<<"Atentie! Cantitatea ceruta este mai mare decat stocul.\n";
+                std::cout<<"Stocul curent este: "<<num;
+            }
+
+            if(m.getStock() <= 0)
+                manualeliceu.erase(remove(manualeliceu.begin(), manualeliceu.end(), man));
+            break;
+        }
+}
+
+ManualLucru Librarie::compara(std::string sub, int cls, int dif, bool rez) //returneaza manualul cel mai ieftin pentru subiectul si clasa selectate
 {
-    Manual man(cls, sub, -1, 500);
+    ManualLucru man(cls, sub, -1, 500, dif, rez);
     for(auto &manual : this->manuale)
     {
-        if(manual < man) man = manual;
+        if(manual < man && manual.getDificulty()==dif && manual.getRez() == rez) man = manual;
     }
-    if(man.getPrice() == 500)
+    if(man.getPrice() == 495) //are pretul redus cu 5
+        throw produs_inexistent(man);
+
+    return man;
+}
+
+ManualLiceu Librarie::compara(std::string sub, int cls, std::string profil) //returneaza manualul cel mai ieftin pentru subiectul si clasa selectate
+{
+    ManualLiceu man(cls, sub, -1, 500, profil);
+    for(auto &manual : this->manualeliceu)
+    {
+        if(manual < man && manual.getProfil() == profil) man = manual;
+    }
+    if(man.getPrice() == 510) //manualliceu are +10
         throw produs_inexistent(man);
 
     return man;
@@ -116,6 +162,8 @@ std::ostream &operator<<( std::ostream &output, const Librarie &lib ) {
     for (auto &caiet : lib.caiete)
         output << caiet;
     for (auto &manual : lib.manuale)
+        output << manual;
+    for (auto &manual : lib.manualeliceu)
         output << manual;
     return output;
 }
