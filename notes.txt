@@ -1,30 +1,18 @@
--am reparat functia de comparare din versiunea trecuta
--am adaugat doua functii mostenite de la Manual
--am adaugat exceptii
--am incercat sa schimb si stocul pe Librarie doar ca am avut niste probleme
-Am declarat libraria asa:
+-varianta pusa azi are stocul la manual si la caiet, inca nu imi merge sa sterg un produs pe varianta cu stocul pe librarie.
 
-class Librarie{
-private:
-    std::string name;
-    std::vector < std::pair <Caiet, int> > caiete;
-    std::vector < std::pair <Manual, int> > manuale;
-}
-
-si nu stiu cum ar trebui sa rescriu functiile de get si set pe care le aveam inainte pentru stoc pentru a putea modifica stocul, 
-asa ca mi-au aparut niste probleme la functiile adauga si sterge(+ aici nu-mi mai merge sa sterg de tot elementul din vector, inainte il stergeam cu:
-caiete.erase(remove(caiete.begin(), caiete.end(), caiet)); )
-
-Ca exemplu la ce am incercat pentru functia adauga si nu imi modifica stocul:
-
-void Librarie::adauga(Caiet &caiet, int stoc){  ///verifica daca produsul exista deja, iar daca exista ii modifica stocul, daca nu, il adauga la librarie
-    int ok = 1;
-    for(auto &c : this->caiete)
-        if( c.first == caiet)
-        {
-            c.second = c.second + stoc;
-            ok = 0;
-            break;
-        }
-    if(ok == 1) caiete.push_back( std::make_pair (caiet, stoc));
-}
+am scris 
+    
+    caiete.erase(std::remove_if(caiete.begin(), caiete.end(), [](auto &c) { c.second == 0; }),caiete.end()); //c.second e stocul si eu sterg daca el ajunge 0
+    
+eroarea primita e:
+             
+In instantiation of 'bool __gnu_cxx::__ops::_Iter_pred<_Predicate>::operator()(_Iterator) [with _Iterator = __gnu_cxx::__normal_iterator<std::pair<Caiet, int>*, std::vector<std::pair<Caiet, int> > >; _Predicate = Librarie::sterge(Caiet&, int)::<lambda(auto:1&)>]':
+C:/PROGRA~1/MINGW-~1/X86_64~1.0-P/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/stl_algo.h:869:13:   required from '_ForwardIterator std::__remove_if(_ForwardIterator, _ForwardIterator, _Predicate) [with _ForwardIterator = __gnu_cxx::__normal_iterator<std::pair<Caiet, int>*, std::vector<std::pair<Caiet, int> > >; _Predicate = __gnu_cxx::__ops::_Iter_pred<Librarie::sterge(Caiet&, int)::<lambda(auto:1&)> >]'
+C:/PROGRA~1/MINGW-~1/X86_64~1.0-P/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/stl_algo.h:939:30:   required from '_FIter std::remove_if(_FIter, _FIter, _Predicate) [with _FIter = __gnu_cxx::__normal_iterator<std::pair<Caiet, int>*, std::vector<std::pair<Caiet, int> > >; _Predicate = Librarie::sterge(Caiet&, int)::<lambda(auto:1&)>]'
+C:\Users\Monica\CLionProjects\PROIECT POO\Librarie.cpp:67:93:   required from here
+C:/PROGRA~1/MINGW-~1/X86_64~1.0-P/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/predefined_ops.h:283:11: error: void value not ignored as it ought to be
+  { return bool(_M_pred(*__it)); }
+           ^~~~~~~~~~~~~~~~~~~~
+           
+           
+- in rest am mai reparat clasele prin mostenire, am realizat ca nu mergea cum trebuie, am adaugat un virtual std::unique_ptr <Manual> clone() = 0; si virtual int getPrice();
