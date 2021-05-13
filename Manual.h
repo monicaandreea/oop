@@ -19,7 +19,7 @@ public:
     std::string getSubject();
     int getStock();
     void setStock(int s);
-    ~Manual();
+    virtual ~Manual();
     friend std::ostream &operator<<( std::ostream &output, const Manual &m );
     friend bool operator==( const Manual &m1, const Manual &m2);
     friend bool operator<( const Manual &m1, const Manual &m2);
