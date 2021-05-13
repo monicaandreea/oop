@@ -1,8 +1,8 @@
 #ifndef LIBRARIE_MANUAL_H
 #define LIBRARIE_MANUAL_H
 
-
 #include<iostream>
+#include <memory>
 
 class Manual{
 private:
@@ -13,6 +13,7 @@ private:
 public:
 
     Manual(const int &cls, std::string sub, int stoc, int pret);
+    virtual std::unique_ptr <Manual> clone() = 0;
     int getClasa();
     virtual int getPrice();
     std::string getSubject();
